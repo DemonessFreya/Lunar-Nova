@@ -1,0 +1,48 @@
+name: Build and Upload Linux OGRE Game
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential cmake libfreetype6-dev libxt-dev libxaw7-dev libxrandr-dev \
+            libxinerama-dev libxcursor-dev libxi-dev libx11-dev libxext-dev libxmu-dev \
+            libxrender-dev libgl1-mesa-dev libglu1-mesa-dev zlib1g-dev libpng-dev \
+            libzzip-dev libois-dev libsdl2-dev libglm-dev libcurl4-openssl-dev
+
+      - name: Clone and build OGRE
+        run: |
+          git clone --branch v13.6.3 https://github.com/OGRECave/ogre.git
+          cd ogre
+          mkdir build && cd build
+          cmake .. -DOGRE_BUILD_SAMPLES2=OFF -DOGRE_BUILD_TESTS=OFF -DOGRE_BUILD_TOOLS=OFF -DCMAKE_INSTALL_PREFIX=$HOME/ogre-install
+          make -j$(nproc)
+          make install
+
+      - name: Build your game with OGRE
+        run: |
+          mkdir build && cd build
+          cmake .. -DCMAKE_PREFIX_PATH=$HOME/ogre-install
+          make -j$(nproc)
+          mkdir ../Release-Linux
+          cp Lunar-Nova ../Release-Linux/
+
+      - name: Itch.io - Publish Linux build
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
+          gameData: Release-Linux
+          itchUsername: DemonessFreya
+          itchGameId: the-worst-game
+          buildChannel: linux

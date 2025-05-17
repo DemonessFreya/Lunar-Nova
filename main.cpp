@@ -21,7 +21,7 @@ public:
 // Main application class derived from Ogre's ApplicationContext
 class BasicApp : public OgreBites::ApplicationContext {
 public:
-    BasicApp() : OgreBites::ApplicationContext("OgreTutorialApp") {}
+    BasicApp() : OgreBites::ApplicationContext("The Worst Game") {}
 
     // Keep an instance of the input handler as a member variable
     KeyHandler keyHandler;

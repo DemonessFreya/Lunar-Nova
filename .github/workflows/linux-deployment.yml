@@ -38,6 +38,7 @@ jobs:
 
       - name: Build your game with OGRE
         run: |
+          rm -rf build
           mkdir build && cd build
           cmake .. -G Ninja -DCMAKE_PREFIX_PATH=$HOME/ogre-install
           ninja

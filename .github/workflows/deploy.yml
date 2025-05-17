@@ -1,0 +1,22 @@
+name: Upload to Itch.io
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Itch.io - Publish
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
+          gameData: Release
+          itchUsername: DemonessFreya
+          itchGameId: the-worst-game
+          buildChannel: windows

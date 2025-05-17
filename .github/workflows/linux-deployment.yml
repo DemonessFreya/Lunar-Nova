@@ -35,8 +35,10 @@ jobs:
           mkdir build && cd build
           cmake .. -DCMAKE_PREFIX_PATH=$HOME/ogre-install
           make -j$(nproc)
-          mkdir ../Release-Linux
+          mkdir -p ../Release-Linux
           cp Lunar-Nova ../Release-Linux/
+          cp -r ../req-files/. ../Release-Linux/
+          cp -r ../Media ../Release-Linux/Media
 
       - name: Itch.io - Publish Linux build
         uses: KikimoraGames/itch-publish@v0.0.3

@@ -46,7 +46,7 @@ jobs:
           mkdir -p Release-Linux
           cp build/the-worst-game Release-Linux/
           cp -r req-files/. Release-Linux/
-          cp -r Media Release-Linux/Media
+          cp -r req-files/Media Release-Linux/Media
 
       - name: Itch.io - Publish Linux build
         uses: KikimoraGames/itch-publish@v0.0.3

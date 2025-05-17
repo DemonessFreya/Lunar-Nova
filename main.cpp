@@ -49,7 +49,7 @@ public:
 
         // Create a camera scene node positioned a bit away from origin, looking forward
         Ogre::SceneNode* camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-        camNode->setPosition(0, 0, 50);
+        camNode->setPosition(0, 0, 300);
         camNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
 
         // Create the camera itself and configure near clipping and aspect ratio
@@ -62,7 +62,7 @@ public:
         getRenderWindow()->addViewport(cam);
 
         // Load a 3D model entity and attach it to a new scene node for rendering
-        Ogre::Entity* ent = scnMgr->createEntity("athene.mesh");
+        Ogre::Entity* ent = scnMgr->createEntity("knot.mesh");
         Ogre::SceneNode* node = scnMgr->getRootSceneNode()->createChildSceneNode();
         node->attachObject(ent);
 
